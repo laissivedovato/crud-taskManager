@@ -1,0 +1,6 @@
+- Documentar todo o código escrito até agora ANTES de criar qualquer outra coisa ok
+- Verificara integridade de linguagem dentro do sistem ok
+- Criar repositório remoto e subir tudo o que foi feito até agora
+- Separar códigos javascript em arquivos ok
+- Separar css em arquivos ok
+- Adicionar ícones pelo sistema [[https://feathericons.com]]

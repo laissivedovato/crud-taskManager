@@ -1,0 +1,23 @@
+ .feather {
+   width: 16px;
+   height: 16px;
+   stroke: currentColor;
+   stroke-width: 2;
+   stroke-linecap: round;
+   stroke-linejoin: round;
+   fill: none;
+   vertical-align: unset;
+ }
+
+ #tableID {
+   width: 75px;
+ }
+
+ #tableActions {
+   width: 150px;
+ }
+
+ th,
+ .tableActionsLines {
+   text-align: center;
+ }
