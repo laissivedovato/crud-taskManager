@@ -3,18 +3,17 @@
 require 'dbcon.php';
 session_start();
 
-// adicionando um novo cliente
+// adding a new client
 if(isset($_POST['add_client'])) {
-  // se o nome estiver vazio seta uma mensagem e redireciona para a edição do
-  // cliente enviado
+  // if the name is empty, it sets a message and redirects to editing the client sent
   if(empty($_POST['client_name'])) {
     $_SESSION['message'] = "Client name is mandatory!";
     header("Location: ../pages/clients/addClient.php");
     exit(0);
   }
 
-  $clienteCadastro = procuraClientePorNome($_POST['client_name'], 0);
-  if (!empty($clienteCadastro)) {
+  $addClient = searchClientByName($_POST['client_name'], 0);
+  if (!empty($addClient)) {
     $_SESSION['message'] = "Client name is already in use!";
     header("Location: ../pages/clients/addClient.php");
     exit(0);
@@ -49,18 +48,17 @@ if(isset($_POST['add_client'])) {
   }
 }
 
-// atualização de clientes
+//update clients
 if (isset($_POST['update_client'])) {
-  // se o nome estiver vazio seta uma mensagem e redireciona para a edição do
-  // cliente enviado
+  // if the name is empty, set a message and redirect to editing the client sent
   if(empty($_POST['client_name'])) {
     $_SESSION['message'] = "Client name is mandatory!";
     header("Location: ../pages/clients/editClient.php?id={$_POST['client_id']}");
     exit(0);
   }
 
-  $clienteCadastro = procuraClientePorNome($_POST['client_name'], $_POST['client_id']);
-  if (!empty($clienteCadastro)) {
+  $addClient = searchClientByName($_POST['client_name'], $_POST['client_id']);
+  if (!empty($addClient)) {
     $_SESSION['message'] = "Client name is already in use!";
     header("Location: ../pages/clients/editClient.php?id={$_POST['client_id']}");
     exit(0);
@@ -77,7 +75,7 @@ if (isset($_POST['update_client'])) {
   header("Location: ../pages/clients/editClient.php?id={$_POST['client_id']}");
 }
 
-// trata a ativação ou desativação de clientes
+// handle activation or deactivation of clients
 if (isset($_POST['toggle_activate_client'])) {
   $active = 1;
 
@@ -100,14 +98,14 @@ if (isset($_POST['toggle_activate_client'])) {
   header("Location: ../pages/clients/listClient.php");
 }
 
-function procuraClientePorNome($nomeCliente, $idCliente) {
+function searchClientByName($clientName, $idClient) {
   require './dbcon.php';
 
   $query = "
     SELECT  id_clients
     FROM    clients
-    WHERE   client_name = '{$nomeCliente}'
-    AND     id_clients != '{$idCliente}'
+    WHERE   client_name = '{$clientName}'
+    AND     id_clients != '{$idClient}'
   ";
 
   $query_run = mysqli_query($con, $query);

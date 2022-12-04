@@ -38,8 +38,6 @@ CREATE TABLE IF NOT EXISTS projects (
         ON UPDATE CASCADE
 );
 
-
-
 CREATE TABLE IF NOT EXISTS project_updates(
  id_updates int(10) unsigned auto_increment primary key,
  id_projects int(10) unsigned not null,

@@ -14,7 +14,7 @@ require '../../db/dbcon.php';
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./clients.css">
 
   <script src="https://unpkg.com/feather-icons"></script>
 
@@ -36,7 +36,7 @@ require '../../db/dbcon.php';
               <i data-feather="plus"></i>
             </a>
 
-            <h4 class="text-center">Client Details</h4>
+            <h4 class="text-center">Clients</h4>
           </div>
           <div class="card-body">
 
@@ -126,6 +126,6 @@ require '../../db/dbcon.php';
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script> feather.replace(); </script>
-  <script src="../js/script.js"></script>
+  <script src="../js/clientButtons.js"></script>
 </body>
 </html>

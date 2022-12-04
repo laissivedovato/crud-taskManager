@@ -10,6 +10,11 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="./clients.css">
+
+  <script src="https://unpkg.com/feather-icons"></script>
+
 </head>
 
 <body>
@@ -18,7 +23,9 @@
 
     <div class="card">
       <div class="card-header">
-        <a href="listClient.php" class="btn btn-danger float-start">Back</a>
+        <a href="./listClient.php" class="btn btn-danger float-start ">
+          <i data-feather="arrow-left"></i>
+        </a>
         <h4 class="text-center"> Add Client</h4>
       </div>
       <div class="card-body">
@@ -27,9 +34,7 @@
 
           <div class="form-group">
             <label class="font-normal" for="client_name">Client Name</label>
-            <input class="form-control" type="text" name="client_name"
-              placeholder="Enter client name"
-            >
+            <input class="form-control" type="text" name="client_name" placeholder="Enter client name">
           </div>
 
           <div class="mt-3">
@@ -43,6 +48,9 @@
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
+  <script>
+    feather.replace();
+  </script>
 
 </body>
 

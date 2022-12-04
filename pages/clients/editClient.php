@@ -28,6 +28,11 @@ if (isset($_GET['id'])) {
   <title>Client Edit</title>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="./clients.css">
+
+  <script src="https://unpkg.com/feather-icons"></script>
+
 </head>
 
 <body>
@@ -39,7 +44,10 @@ if (isset($_GET['id'])) {
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <a href="./listClient.php" class="btn btn-danger float-start">Back</a>
+            <a href="./listClient.php" class="btn btn-danger float-start">
+              <i data-feather="arrow-left"></i>
+            </a>
+
             <h4 class="text-center">Client Edit</h4>
           </div>
           <div class="card-body">
@@ -64,6 +72,10 @@ if (isset($_GET['id'])) {
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    feather.replace();
+  </script>
 </body>
 
 </html>

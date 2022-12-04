@@ -26,7 +26,8 @@ require './db/dbcon.php';
       <div class="d-grid gap-2 col-6 mx-auto">
         <a href="pages/clients/listClient.php" class="btn btn-primary" type="button">Clients</a>
 
-        <button class="btn btn-primary" type="button">Projects</button>
+        <a href="pages/projects/listProjects.php" class="btn btn-primary" type="button">Projects</a>
+
       </div>
 
     </div>
