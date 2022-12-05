@@ -3,15 +3,64 @@
 require 'dbcon.php';
 session_start();
 
+$query = "
+  SELECT  id_clients AS id,
+          client_name,
+  FROM    clients
+  WHERE   is_active = b'1'
+";
+
 // adding a new project
 if (isset($_POST['add_project'])) {
 
-  // if the name is empty, it sets a message and redirects to editing the project sent
-  if (empty($_POST['name'])) {
+//  print_r ($_POST); exit;
+
+  //verification
+  // if the project name is empty, it sets a message and redirects to editing the project sent
+  if (empty($_POST['project_name'])) {
     $_SESSION['message'] = "Project name is mandatory!";
-    header("Location: ../pages/projects/addProject");
+    header("Location: ../pages/projects/addProject.php");
     exit(0);
   }
+
+  //if the client name is empity, its sets a message and redirects to editing the project sent
+  if (empty($_POST['id_clients'])) {
+    $_SESSION['message'] = "Client name is mandatory!";
+    header("Location: ../pages/projects/addProject.php");
+    exit(0);
+  }
+
+  // client intermediary - fazer a verificação de não ser igual ao cliente
+  if (!empty($_POST['id_clients_intermediary'])) {
+    if ($_POST['id_clients'] === $_POST['id_clients_intermediary']) {
+      $_SESSION['message'] = "Intermediary client must be different than client";
+      header("Location: ../pages/projects/addProject.php");
+      exit(0);
+    }
+  }
+
+  //if the deadline-date is empity, its sets a message and redirects to editing the project sent
+  if (empty($_POST['deadline_date'])) {
+    $_SESSION['message'] = "Deadline is mandatory!";
+    header("Location: ../pages/projects/addProject.php");
+    exit(0);
+  }
+
+  //if value is empity, its sets a message and redirects to editing the project sent
+  if (empty($_POST['value'])) {
+    $_SESSION['message'] = "The Project Price is mandatory!";
+    header("Location: ../pages/projects/addProject.php");
+    exit(0);
+  }
+
+  //if the description is empity, its sets a message and redirects to editing the project sent
+  if (empty($_POST['description'])) {
+    $_SESSION['message'] = "The Rpoject Description is mandatory!";
+    header("Location: ../pages/projects/addProject.php");
+    exit(0);
+  }
+
+
 
   $addProject = searchProjectByName($_POST['name'], 0);
   if (!empty($addProject)) {
@@ -27,26 +76,30 @@ if (isset($_POST['add_project'])) {
     exit(0);
   }
 
-  $projectName = mysqli_real_escape_string($con, $_POST['name']);
+    $_SESSION['message'] = 'Consegui validar todas as informacoes';
+    header('Location: ../pages/projects/listProjects.php');
+    exit(0);
+
+  // $projectName = mysqli_real_escape_string($con, $_POST['name']);
 
   //create sql
-  $insertProjectQuery = "
-    INSERT INTO projects (name)
-    VALUES ('{$projectName}')
-  ";
+  // $insertProjectQuery = "
+  //   INSERT INTO projects (name, id_clients,  )
+  //   VALUES ('{$projectName}')
+  // ";
 
-  //save to db and check
-  if (mysqli_query($con, $insertProjectQuery)) {
-    //sucess
-    $_SESSION['message'] = 'Project created successfully';
-    header('Location: ../pages/projects/listProjects.php');
-    exit(0);
-  } else {
-    //error
-    $_SESSION['message'] = 'query error: ' . mysqli_error($con);;
-    header('Location: ../pages/projects/listProjects.php');
-    exit(0);
-  }
+  // //save to db and check
+  // if (mysqli_query($con, $insertProjectQuery)) {
+  //   //sucess
+  //   $_SESSION['message'] = 'Project created successfully';
+  //   header('Location: ../pages/projects/listProjects.php');
+  //   exit(0);
+  // } else {
+  //   //error
+  //   $_SESSION['message'] = 'query error: ' . mysqli_error($con);;
+  //   header('Location: ../pages/projects/listProjects.php');
+  //   exit(0);
+  // }
 }
 
 // atualização de projetos
@@ -116,8 +169,7 @@ function searchProjectByName($nomeProject, $idProject)
   return mysqli_fetch_row($query_run);
 }
 
-function getProjectById($con, $id)
-{
+function getProjectById($con, $id) {
   $query = "
     SELECT  id_projects AS id,
             name

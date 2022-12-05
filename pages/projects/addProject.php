@@ -50,57 +50,58 @@ $clientsFetched = mysqli_fetch_all($clients);
           <div class="form-group">
             <label class="font-normal" for="project_name">Nome do Projeto</label>
             <input class="form-control" type="text" name="project_name" placeholder="Enter Project name">
+          </div>
 
-            <div class="form-group">
-              <label for="selectClient">Cliente</label>
-              <select class="form-control" id="selectClient">
-                <?php if (empty($clientsFetched)) { ?>
-                  <option disabled selected>Não há clientes cadastrados</option>
-                <?php } else { ?>
-                  <option disabled selected>Selecione</option>
+          <div class="form-group">
+            <label for="id_clients">Cliente</label>
+            <select class="form-control" id="selectClient" name="id_clients">
+              <?php if (empty($clientsFetched)) { ?>
+                <option disabled selected>Não há clientes cadastrados</option>
+              <?php } else { ?>
+                <option disabled selected>Selecione</option>
 
-                  <?php foreach ($clients as $client) { ?>
-                    <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
-                  <?php } ?>
-                <?php } // endif (empty($cients))
-                ?>
-              </select>
-            </div>
+                <?php foreach ($clients as $client) { ?>
+                  <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
+                <?php } ?>
+              <?php } // endif (empty($cients))
+              ?>
+            </select>
+          </div>
 
-            <div class="form-group">
-              <label for="selectClient">Cliente Intermediário</label>
-              <select class="form-control" id="selectClient">
-                <?php if (empty($clientsFetched)) { ?>
-                  <option disabled selected>Não há clientes cadastrados</option>
-                <?php } else { ?>
-                  <option disabled selected>Selecione</option>
+          <div class="form-group">
+            <label for="id_clients_intermediary">Cliente Intermediário</label>
+            <select class="form-control" id="selectClient" name="id_clients_intermediary">
+              <?php if (empty($clientsFetched)) { ?>
+                <option disabled selected>Não há clientes cadastrados</option>
+              <?php } else { ?>
+                <option disabled selected>Selecione</option>
 
-                  <?php foreach ($clients as $client) { ?>
-                    <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
-                  <?php } ?>
-                <?php } //endif (empity($clients))
-                ?>
-              </select>
-            </div>
+                <?php foreach ($clients as $client) { ?>
+                  <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
+                <?php } ?>
+              <?php } //endif (empity($clients))
+              ?>
+            </select>
+          </div>
 
-            <div class="form-group">
-              <label class="font-normal">Prazo do Projeto</label>
-              <input type="datetime-local" id="meetintg-time" name="meeting-time" value="2022-06-12T" min="2022-06-07T" max="2022-06-14T">
-            </div>
+          <div class="form-group">
+            <label class="font-normal">Prazo do Projeto</label>
+            <input type="datetime-local" id="deadline_date" name="deadline_date" value="2022-06-12T" min="2022-06-07T" max="2022-06-14T">
+          </div>
 
-            <div class="form-group">
-              <label for="valueProject">Preço do Projeto</label>
-              <textarea class="form-control" id="valueProject" rows="1"></textarea>
-            </div>
+          <div class="form-group">
+            <label for="value">Preço do Projeto</label>
+            <textarea class="form-control" id="valueProject" rows="1" name="value"></textarea>
+          </div>
 
-            <div class="form-group">
-              <label for="descriptionProject">Description</label>
-              <textarea class="form-control" id="descriptionProject" rows="3"></textarea>
-            </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="descriptionProject" rows="3" name="description"></textarea>
+          </div>
 
-            <div class="mt-3">
-              <button type="submit" name="submit" class="btn btn-primary">Save Project</button>
-            </div>
+          <div class="mt-3">
+            <button type="submit" name="submit" class="btn btn-primary">Save Project</button>
+          </div>
         </form>
       </div>
     </div>
