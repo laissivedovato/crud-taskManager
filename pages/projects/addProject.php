@@ -91,7 +91,7 @@ $clientsFetched = mysqli_fetch_all($clients);
 
           <div class="form-group">
             <label for="value">Preço do Projeto</label>
-            <textarea class="form-control" id="valueProject" rows="1" name="value"></textarea>
+            <input type="number" step="0.01" class="form-control" id="valueProject" name="value">
           </div>
 
           <div class="form-group">
