@@ -53,6 +53,11 @@ $clientsFetched = mysqli_fetch_all($clients);
           </div>
 
           <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="descriptionProject" rows="3" name="description"></textarea>
+          </div>
+
+          <div class="form-group">
             <label for="id_clients">Cliente</label>
             <select class="form-control" id="selectClient" name="id_clients">
               <?php if (empty($clientsFetched)) { ?>
@@ -95,8 +100,13 @@ $clientsFetched = mysqli_fetch_all($clients);
           </div>
 
           <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="descriptionProject" rows="3" name="description"></textarea>
+            <label for="value_observations">Observação do Preço</label>
+            <textarea class="form-control" id="descriptionProject" rows="2" name="description"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="project_observations">Observações do Projeto*</label>
+            <textarea class="form-control" id="descriptionProject" rows="2" name="project_description"></textarea>
           </div>
 
           <div class="mt-3">

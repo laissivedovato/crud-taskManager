@@ -45,16 +45,16 @@ require '../../db/dbcon.php';
             <?php
             //select the id project from db and if active deactive it, and if is deactive ative the project registration
             $query = "
-                    SELECT      proj.id_projects                AS projectId,
-                                proj.name                       AS projectName,
-                                proj.deadline_date              AS projectDeadline,
-                                IF(proj.is_active = b'1', 1, 0) AS active,
-                                cli.client_name                 AS clientName
+              SELECT      proj.id_projects                AS projectId,
+                          proj.name                       AS projectName,
+                          proj.deadline_date              AS projectDeadline,
+                          IF(proj.is_active = b'1', 1, 0) AS active,
+                          cli.client_name                 AS clientName
 
-                    FROM        projects  AS proj
-                    INNER JOIN  clients   AS cli    ON cli.id_clients = proj.id_clients
-                  ";
-            $projects = mysqli_query($con, $query); 
+              FROM        projects  AS proj
+              INNER JOIN  clients   AS cli    ON cli.id_clients = proj.id_clients
+            ";
+            $projects = mysqli_query($con, $query);
 
             if (mysqli_num_rows($projects) > 0) {
             ?>
@@ -72,22 +72,22 @@ require '../../db/dbcon.php';
                   <?php foreach ($projects as $project) { ?>
                     <!-- editing button -->
                     <tr>
-                      <td><?= $project['id']; ?></td>
-                      <td><?= $project['name']; ?></td>
-                      <td><?= $project['clients']; ?></td>
+                      <td><?= $project['projectId']; ?></td>
+                      <td><?= $project['projectName']; ?></td>
+                      <td><?= $project['clientName']; ?></td>
                       <td class="tableActionsLines">
-                        <a href="../../db/projects.php?= $project['id']; ?>" class="btn btn-warning btn-sm text-white">
+                        <a href="../editProject.php?=<?= $project['projectId']; ?>" class="btn btn-warning btn-sm text-white">
                           <i data-feather="edit"></i>
                         </a>
 
                         <?php if ($project['active'] == 1) { ?>
                           <!-- deactivate button -->
-                          <button type="button" class="btn btn-sm btn-danger btn-deactivate-project" data-client_id="<?= $project['id']; ?>" data-bs-toggle="modal" data-bs-target="#toggleActivateProjectModal">
+                          <button type="button" class="btn btn-sm btn-danger btn-deactivate-project" data-client_id="<?= $project['projectId']; ?>" data-bs-toggle="modal" data-bs-target="#toggleActivateProjectModal">
                             <i data-feather="x"></i>
                           </button>
                         <?php } else { ?>
                           <!-- activate button -->
-                          <button type="button" class="btn btn-sm btn-success btn-activate-project" data-client_id="<?= $project['id']; ?>" data-bs-toggle="modal" data-bs-target="#toggleActivateProjectModal">
+                          <button type="button" class="btn btn-sm btn-success btn-activate-project" data-client_id="<?= $project['projectId']; ?>" data-bs-toggle="modal" data-bs-target="#toggleActivateProjectModal">
                             <i data-feather="check"></i>
                           </button>
                         <?php } // endif

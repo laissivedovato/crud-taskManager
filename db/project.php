@@ -23,6 +23,13 @@ if (isset($_POST['add_project'])) {
     exit(0);
   }
 
+  //if the description is empity, its sets a message and redirects to editing the project sent
+  if (empty($_POST['description'])) {
+    $_SESSION['message'] = "The Rpoject Description is mandatory!";
+    header("Location: ../pages/projects/addProject.php");
+    exit(0);
+  }
+
   //if the client name is empity, its sets a message and redirects to editing the project sent
   if (empty($_POST['id_clients'])) {
     $_SESSION['message'] = "Client name is mandatory!";
@@ -53,66 +60,78 @@ if (isset($_POST['add_project'])) {
     exit(0);
   }
 
-  //if the description is empity, its sets a message and redirects to editing the project sent
-  if (empty($_POST['description'])) {
-    $_SESSION['message'] = "The Rpoject Description is mandatory!";
-    header("Location: ../pages/projects/addProject.php");
-    exit(0);
-  }
 
 
-
-  $addProject = searchProjectByName($_POST['name'], 0);
+  //additing a new project
+  $addProject = searchProjectByName($_POST['project_name'], 0);
   if (!empty($addProject)) {
     $_SESSION['message'] = "Project name is already in use!";
     header("Location: ../pages/projects/addProject.php");
     exit(0);
   }
 
-  $projectName = $_POST['name'];
+  //Name's project verification
+  $projectName = $_POST['project_name'];
   if (!preg_match('/^[a-zA-Z\s]/', $projectName)) {
     $_SESSION['message'] = 'Name must be letters and spaces only';
     header("Location: ../pages/projects/addProject.php");
     exit(0);
   }
 
-    $_SESSION['message'] = 'Consegui validar todas as informacoes';
+    // $_SESSION['message'] = 'Consegui validar todas as informacoes';
+    // header('Location: ../pages/projects/listProjects.php');
+    // exit(0);
+
+  $projectName = mysqli_real_escape_string($con, $projectName);
+
+  $dataCriacao = date("Y-m-d H:i:s");
+
+  $insertProjectQuery = "
+    INSERT INTO projects (
+      name,
+      id_clients,
+      ".(empty($_POST['id_clients_intermediary']) ? "" : "id_clients_intermediary,")."
+      creation_datetime,
+      deadline_date,
+      value,
+      description,
+      project_observations
+    ) VALUES (
+      '{$projectName}',
+      {$_POST['id_clients']},
+      ".(empty($_POST['id_clients_intermediary']) ? "" : "{$_POST['id_clients_intermediary']},")."
+      '{$dataCriacao}',
+      '{$_POST['deadline_date']}',
+      {$_POST['value']},
+      '{$_POST['description']}',
+      '{$_POST['project_observations']}'
+    )";
+
+  //save to db and check
+  if (mysqli_query($con, $insertProjectQuery)) {
+    //sucess
+    $_SESSION['message'] = 'Project created successfully';
     header('Location: ../pages/projects/listProjects.php');
     exit(0);
-
-  // $projectName = mysqli_real_escape_string($con, $_POST['name']);
-
-  //create sql
-  // $insertProjectQuery = "
-  //   INSERT INTO projects (name, id_clients,  )
-  //   VALUES ('{$projectName}')
-  // ";
-
-  // //save to db and check
-  // if (mysqli_query($con, $insertProjectQuery)) {
-  //   //sucess
-  //   $_SESSION['message'] = 'Project created successfully';
-  //   header('Location: ../pages/projects/listProjects.php');
-  //   exit(0);
-  // } else {
-  //   //error
-  //   $_SESSION['message'] = 'query error: ' . mysqli_error($con);;
-  //   header('Location: ../pages/projects/listProjects.php');
-  //   exit(0);
-  // }
+  } else {
+    //error
+    $_SESSION['message'] = 'query error: ' . mysqli_error($con);;
+    header('Location: ../pages/projects/listProjects.php');
+    exit(0);
+  }
 }
 
-// atualização de projetos
+// update project
 if (isset($_POST['update_project'])) {
-  // se o nome estiver vazio seta uma mensagem e redireciona para a edição do
-  // projeto enviado
-  if (empty($_POST['name'])) {
+  //if the name is empty, set a message and redirect to editing the
+  // project sent
+  if (empty($_POST['project_name'])) {
     $_SESSION['message'] = "Project name is mandatory!";
     header("Location: ../pages/projects/editProject.php?id={$_POST['project_id']}");
     exit(0);
   }
 
-  $addProject = searchProjectByName($_POST['name'], $_POST['project_id']);
+  $addProject = searchProjectByName($_POST['project_name'], $_POST['project_id']);
   if (!empty($addProject)) {
     $_SESSION['message'] = "Project name is already in use!";
     header("Location: ../pages/projects/editProject.php?id={$_POST['project_id']}");
@@ -153,14 +172,14 @@ if (isset($_POST['toggle_activate_project'])) {
   header("Location: ../pages/projects/listProject.php");
 }
 
-function searchProjectByName($nomeProject, $idProject)
+function searchProjectByName($nameProject, $idProject)
 {
   require './dbcon.php';
 
   $query = "
     SELECT  id_projects
     FROM    projects
-    WHERE   name = '{$nomeProject}'
+    WHERE   name = '{$nameProject}'
     AND     id_projects != '{$idProject}'
   ";
 

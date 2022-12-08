@@ -1,6 +1,11 @@
-- Documentar todo o código escrito até agora ANTES de criar qualquer outra coisa ok
-- Verificara integridade de linguagem dentro do sistem ok
-- Criar repositório remoto e subir tudo o que foi feito até agora OK
-- Separar códigos javascript em arquivos ok
-- Separar css em arquivos ok
-- Adicionar ícones pelo sistema [[https://feathericons.com]] OK
+- Quarta
+  - inserir creation_datetime nos 'projects';
+  - inserir o restante dos campos no 'projects';
+
+- Quinta
+  - edição de projeto;
+  -
+- Sexta
+  - exclusão de projeto;
+
+
