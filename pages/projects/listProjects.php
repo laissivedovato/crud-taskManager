@@ -76,7 +76,7 @@ require '../../db/dbcon.php';
                       <td><?= $project['projectName']; ?></td>
                       <td><?= $project['clientName']; ?></td>
                       <td class="tableActionsLines">
-                        <a href="../editProject.php?=<?= $project['projectId']; ?>" class="btn btn-warning btn-sm text-white">
+                        <a href="./editProject.php <?= $project['projectId']; ?>" class="btn btn-warning btn-sm text-white">
                           <i data-feather="edit"></i>
                         </a>
 

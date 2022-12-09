@@ -26,7 +26,7 @@
         <a href="./listClient.php" class="btn btn-danger float-start ">
           <i data-feather="arrow-left"></i>
         </a>
-        <h4 class="text-center"> Add Client</h4>
+        <h4 class="text-center">Add Client</h4>
       </div>
       <div class="card-body">
         <form action="../../db/clients.php" method="POST">

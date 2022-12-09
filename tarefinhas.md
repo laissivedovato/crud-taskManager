@@ -1,6 +1,6 @@
 - Quarta
-  - inserir creation_datetime nos 'projects';
-  - inserir o restante dos campos no 'projects';
+  - inserir creation_datetime nos 'projects'; ok comitado
+  - inserir o restante dos campos no 'projects'; ok comitado
 
 - Quinta
   - edição de projeto;

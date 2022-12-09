@@ -191,7 +191,14 @@ function searchProjectByName($nameProject, $idProject)
 function getProjectById($con, $id) {
   $query = "
     SELECT  id_projects AS id,
-            name
+            name AS project_name,
+            descripton,
+            id_clients,
+            id_clients_intermediary,
+            deadline_date,
+            value,
+            value_observations,
+            project_observations
     FROM    projects
     WHERE   id_projects = '{$id}'
   ";
