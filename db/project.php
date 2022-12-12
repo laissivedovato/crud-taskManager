@@ -89,12 +89,13 @@ if (isset($_POST['add_project'])) {
   $insertProjectQuery = "
     INSERT INTO projects (
       name,
+      description,
       id_clients,
       ".(empty($_POST['id_clients_intermediary']) ? "" : "id_clients_intermediary,")."
       creation_datetime,
       deadline_date,
       value,
-      description,
+      value_observations,
       project_observations
     ) VALUES (
       '{$projectName}',
@@ -104,6 +105,7 @@ if (isset($_POST['add_project'])) {
       '{$_POST['deadline_date']}',
       {$_POST['value']},
       '{$_POST['description']}',
+      '{$_POST['value_observations']}',
       '{$_POST['project_observations']}'
     )";
 
@@ -127,9 +129,44 @@ if (isset($_POST['update_project'])) {
   // project sent
   if (empty($_POST['project_name'])) {
     $_SESSION['message'] = "Project name is mandatory!";
+    header("Location: ../pages/projects/editProject.php?id={$projectName}");
+    exit(0);
+  }
+    if (empty($_POST['descrption'])) {
+      $_SESSION['message'] = "description is mandatory!";
+      header("Location: ../pages/projects/editProject.php?id={$_POST['description']}");
+      exit(0);
+    }
+
+  if (empty($_POST['id_clients'])) {
+    $_SESSION['message'] = "Client name is mandatory!";
     header("Location: ../pages/projects/editProject.php?id={$_POST['project_id']}");
     exit(0);
   }
+
+  if (empty($_POST['deadline_date'])) {
+    $_SESSION['message'] = "Deadline is mandatory!";
+    header("Location: ../pages/projects/editProject.php?id={$_POST['deadline_date']}");
+    exit(0);
+  }
+
+  if (empty($_POST['value'])) {
+    $_SESSION['message'] = "Deadline is mandatory!";
+    header("Location: ../pages/projects/editProject.php?id={$_POST['value']}");
+    exit(0);
+  }
+
+  if (empty($_POST['value_observations'])) {
+    $_SESSION['message'] = "Value observations is mandatory!";
+    header("Location: ../pages/projects/editProject.php?id={$_POST['value']}");
+    exit(0);
+  }
+
+
+
+
+
+
 
   $addProject = searchProjectByName($_POST['project_name'], $_POST['project_id']);
   if (!empty($addProject)) {
@@ -140,7 +177,12 @@ if (isset($_POST['update_project'])) {
 
   $updateQuery = "
     UPDATE  projects
-    SET     name='{$_POST['project_name']}'
+    SET     name='{$projectName}',
+            description='{$_POST['description']}',
+            id_clients='{$_POST['id_clients']}',
+            name='{$_POST['project_name']}',
+            name='{$_POST['project_name']}'
+
     WHERE   id_projects='{$_POST['projects_id']}'
   ";
   $query_run = mysqli_query($con, $updateQuery);
@@ -192,7 +234,7 @@ function getProjectById($con, $id) {
   $query = "
     SELECT  id_projects AS id,
             name AS project_name,
-            descripton,
+            description,
             id_clients,
             id_clients_intermediary,
             deadline_date,

@@ -8,6 +8,8 @@ $query = "
   WHERE   is_active = b'1'
 ";
 
+$clients = mysqli_query($con, $query);
+$clientsFetched = mysqli_fetch_all($clients);
 
 //gets the id project from db
 require '../../db/project.php';
@@ -44,7 +46,6 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-
   <div class="container mt-5">
     <?php include('../../components/message.php'); ?>
 
@@ -63,69 +64,75 @@ if (isset($_GET['id'])) {
               <input type="hidden" name="update_project" value="1">
               <input type="hidden" name="project_id" value="<?= $project['id']; ?>">
 
-              <div class="mb-3">
+              <div class="mb-3 mb-3">
                 <label>Project Name</label>
                 <input type="text" name="client_name" value="<?= $project['project_name']; ?>" class="form-control">
               </div>
 
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label for="description">Description</label>
-                <textarea " id=" descriptionProject" rows="3" name="description" value="<?= $Project['description']; ?>"></textarea>
+                <textarea class='form-control' id="descriptionProject" rows="3" name="description"><?= $project['description']; ?></textarea>
               </div>
 
-              <div class="form-group">
-                <label for="id_clients">Cliente</label>
-                <select class="form-control" id="selectClient" name="id_clients">
-                  <?php if (empty($clientsFetched)) { ?>
-                    <option disabled selected>Não há clientes cadastrados</option>
-                  <?php } else { ?>
-                    <option disabled selected>Selecione</option>
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="id_clients">Cliente</label>
+                  <select class="form-control" id="selectClient" name="id_clients">
+                    <?php if (empty($clientsFetched)) { ?>
+                      <option disabled selected>Não há clientes cadastrados</option>
+                    <?php } else { ?>
+                      <option disabled selected>Selecione</option>
 
-                    <?php foreach ($clients as $client) { ?>
-                      <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
-                    <?php } ?>
-                  <?php } // endif (empty($cients))
-                  ?>
-                </select>
+                      <?php foreach ($clients as $client) { ?>
+                        <option value="<?= $client['id'] ?>" <?= ($client['id'] == $project['id_clients']) ? "selected" : "" ?>>
+                          <?= $client['name'] ?>
+                        </option>
+                      <?php } ?>
+                    <?php } // endif (empty($cients))
+                    ?>
+                  </select>
+                </div>
+
+                <div class="form-group col-6 mb-3">
+                  <label for="id_clients_intermediary">Cliente Intermediário</label>
+                  <select class="form-control" id="selectClient" name="id_clients_intermediary">
+                    <?php if (empty($clientsFetched)) { ?>
+                      <option disabled selected>Não há clientes cadastrados</option>
+                    <?php } else { ?>
+                      <option disabled selected>Selecione</option>
+
+                      <?php foreach ($clients as $client) { ?>
+                        <option value="<?= $client['id'] ?>" <?= ($client['id'] == $project['id_clients_intermediary']) ? "selected" : "" ?>>
+                          <?= $client['name'] ?>
+                        </option>
+                      <?php } ?>
+                    <?php } //endif (empity($clients))
+                    ?>
+                  </select>
+                </div>
               </div>
 
-              <div class="form-group">
-                <label for="id_clients_intermediary">Cliente Intermediário</label>
-                <select class="form-control" id="selectClient" name="id_clients_intermediary">
-                  <?php if (empty($clientsFetched)) { ?>
-                    <option disabled selected>Não há clientes cadastrados</option>
-                  <?php } else { ?>
-                    <option disabled selected>Selecione</option>
-
-                    <?php foreach ($clients as $client) { ?>
-                      <option value="<?= $client['id'] ?>"><?= $client['name'] ?></option>
-                    <?php } ?>
-                  <?php } //endif (empity($clients))
-                  ?>
-                </select>
-              </div>
-
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label class="font-normal">Prazo do Projeto</label>
-                <input type="datetime-local" id="deadline_date" name="deadline_date" value="2022-06-12T" min="2022-06-07T" max="2022-06-14T" value="<?= $Project['deadline_date']; ?>">
+                <input type="date" id="deadline_date" name="deadline_date" class="form-control" value="<?= $project['deadline_date']; ?>">
               </div>
 
-              <div class="form-group">
+              <div class=" form-group mb-3">
                 <label for="value">Preço do Projeto</label>
-                <input type="number" step="0.01" class="form-control" id="valueProject" name="value" value="<?= $Project['value']; ?>">
+                <input type="number" step="0.01" class="form-control" id="valueProject" name="value" value="<?= $project['value']; ?>">
               </div>
 
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <label for="value_observations">Observação do Preço</label>
-                <textarea class="form-control" id="descriptionProject" rows="2" name="description" value="<?= $Project['value_observations']; ?>"></textarea>
+                <textarea class='form-control' id="descriptionProject" rows="3" name="value_observations"><?= $project['value_observations']; ?></textarea>
               </div>
 
-              <div class="form-group">
-                <label for="project_observations">Observações do Projeto*</label>
-                <textarea class="form-control" id="descriptionProject" rows="2" name="project_description" value="<?= $Project['value_observations']; ?>"></textarea>
+              <div class="form-group mb-3">
+                <label for="project_observations">Observação do Projeto(Opcional)</label>
+                <textarea class='form-control' id="descriptionProject" rows="3" name="project_observations"><?= $project['project_observations']; ?></textarea>
               </div>
 
-              <div class=" mb-3">
+              <div class="form-group mb-3">
                 <button class="btn btn-primary">Update Project </button>
               </div>
             </form>

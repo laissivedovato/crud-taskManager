@@ -91,7 +91,7 @@ $clientsFetched = mysqli_fetch_all($clients);
 
           <div class="form-group">
             <label class="font-normal">Prazo do Projeto</label>
-            <input type="datetime-local" id="deadline_date" name="deadline_date" value="2022-06-12T" min="2022-06-07T" max="2022-06-14T">
+            <input type="date" id="deadline_date" name="deadline_date" value="2022-06-12" class="form-control">
           </div>
 
           <div class="form-group">
@@ -101,12 +101,12 @@ $clientsFetched = mysqli_fetch_all($clients);
 
           <div class="form-group">
             <label for="value_observations">Observação do Preço</label>
-            <textarea class="form-control" id="descriptionProject" rows="2" name="description"></textarea>
+            <textarea class="form-control" id="descriptionProject" rows="2" name="value_observations"></textarea>
           </div>
 
           <div class="form-group">
-            <label for="project_observations">Observações do Projeto*</label>
-            <textarea class="form-control" id="descriptionProject" rows="2" name="project_description"></textarea>
+            <label for="project_observations">Observações do Projeto(Opcional)</label>
+            <textarea class="form-control" id="descriptionProject" rows="2" name="project_observations"></textarea>
           </div>
 
           <div class="mt-3">
