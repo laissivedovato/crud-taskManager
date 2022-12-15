@@ -76,18 +76,33 @@ require '../../db/dbcon.php';
                       <td><?= $project['projectName']; ?></td>
                       <td><?= $project['clientName']; ?></td>
                       <td class="tableActionsLines">
-                        <a href="./editProject.php?id=<?= $project['projectId'];?>" class="btn btn-warning btn-sm text-white">
+                        <a
+                          href="./editProject.php?id=<?= $project['projectId'];?>"
+                          class="btn btn-warning btn-sm text-white"
+                        >
                           <i data-feather="edit"></i>
                         </a>
 
                         <?php if ($project['active'] == 1) { ?>
                           <!-- deactivate button -->
-                          <button type="button" class="btn btn-sm btn-danger btn-deactivate-project" data-client_id="<?= $project['projectId']; ?>" data-bs-toggle="modal" data-bs-target="#toggleActivateProjectModal">
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-danger btn-deactivate-project"
+                            data-project_id="<?= $project['projectId']; ?>"
+                            data-bs-toggle="modal"
+                            data-bs-target="#toggleActivateProjectModal"
+                          >
                             <i data-feather="x"></i>
                           </button>
                         <?php } else { ?>
                           <!-- activate button -->
-                          <button type="button" class="btn btn-sm btn-success btn-activate-project" data-client_id="<?= $project['projectId']; ?>" data-bs-toggle="modal" data-bs-target="#toggleActivateProjectModal">
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-success btn-activate-project"
+                            data-project_id="<?= $project['projectId']; ?>"
+                            data-bs-toggle="modal"
+                            data-bs-target="#toggleActivateProjectModal"
+                          >
                             <i data-feather="check"></i>
                           </button>
                         <?php } // endif
@@ -110,7 +125,13 @@ require '../../db/dbcon.php';
   </div>
 
   <!-- Modal to deactive project -->
-  <div class="modal fade" id="toggleActivateProjectModal" tabindex="-1" aria-labelledby="toggleActivateProjectModalLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="toggleActivateProjectModal"
+    tabindex="-1"
+    aria-labelledby="toggleActivateProjectModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

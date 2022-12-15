@@ -101,12 +101,12 @@ $clientsFetched = mysqli_fetch_all($clients);
 
           <div class="form-group">
             <label for="value_observations">Observação do Preço</label>
-            <textarea class="form-control" id="descriptionProject" rows="2" name="value_observations"></textarea>
+            <textarea class="form-control" id="valueObservations" rows="2" name="value_observations"></textarea>
           </div>
 
           <div class="form-group">
             <label for="project_observations">Observações do Projeto(Opcional)</label>
-            <textarea class="form-control" id="descriptionProject" rows="2" name="project_observations"></textarea>
+            <textarea class="form-control" id="projectObservations" rows="2" name="project_observations"></textarea>
           </div>
 
           <div class="mt-3">

@@ -64,6 +64,7 @@ if (isset($_POST['update_client'])) {
     exit(0);
   }
 
+
   $updateQuery = "
     UPDATE  clients
     SET     client_name='{$_POST['client_name']}'
@@ -74,6 +75,7 @@ if (isset($_POST['update_client'])) {
   $_SESSION['message'] = "Client name updated successfully!";
   header("Location: ../pages/clients/editClient.php?id={$_POST['client_id']}");
 }
+
 
 // handle activation or deactivation of clients
 if (isset($_POST['toggle_activate_client'])) {

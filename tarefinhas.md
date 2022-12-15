@@ -1,11 +1,8 @@
-- Quarta
-  - inserir creation_datetime nos 'projects'; ok comitado
-  - inserir o restante dos campos no 'projects'; ok comitado
-
-- Quinta
-  - edição de projeto;
-  -
-- Sexta
-  - exclusão de projeto;
-
+- terminar a edição!!! !!
+- Comentar o código
+- Corrigir os textos todos para inglês
+- Exclusão(desativação) de projetos
+- Encontrar um modo de não zerar o formulário
+  em caso de erro retornado
+- Fazer um botão para o project_updates
 

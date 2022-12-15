@@ -3,7 +3,7 @@ const buttonsActive = document.querySelectorAll('button.btn-activate-project');
 const buttonsDeactive = document.querySelectorAll('button.btn-deactivate-project');
 
 // variables used to change values in clients requisitions
-const clientIdInput = document.getElementById('projectIdInput');
+const projectIdInput = document.getElementById('projectIdInput');
 const toggleActivateClientInput = document.getElementById('toggleActivateProjectInput');
 const modalHeader = document.getElementById('toggleActivateProjectModalLabel');
 const modalBody = document.getElementById('modalBody');
@@ -12,7 +12,7 @@ const modalBody = document.getElementById('modalBody');
 buttonsDeactive.forEach(function (buttonDeactive) {
   // on click, handles the values used for requisitions and sets info texts
   buttonDeactive.addEventListener('click', function() {
-    clientIdInput.value = buttonDeactive.dataset.project_id;
+    projectIdInput.value = buttonDeactive.dataset.project_id;
     toggleActivateProjectInput.value = 'deactivate';
 
     // sets the return texts
@@ -26,7 +26,7 @@ buttonsActive.forEach(function (buttonActive) {
   // on click, handles the values used for requisitions and sets info texts
   buttonActive.addEventListener('click', function() {
     projectIdInput.value = buttonActive.dataset.project_id;
-    toggleActivateClientInput.value = 'activate';
+    toggleActivateProjectInput.value = 'activate';
 
     // sets the return texts
     modalHeader.innerHTML = 'Ativar projeto';

@@ -124,12 +124,12 @@ if (isset($_GET['id'])) {
 
               <div class="form-group mb-3">
                 <label for="value_observations">Observação do Preço</label>
-                <textarea class='form-control' id="descriptionProject" rows="3" name="value_observations"><?= $project['value_observations']; ?></textarea>
+                <textarea class='form-control' id="valueObservations" rows="3" name="value_observations"><?= $project['value_observations']; ?></textarea>
               </div>
 
               <div class="form-group mb-3">
                 <label for="project_observations">Observação do Projeto(Opcional)</label>
-                <textarea class='form-control' id="descriptionProject" rows="3" name="project_observations"><?= $project['project_observations']; ?></textarea>
+                <textarea class='form-control' id="projectObservations" rows="3" name="project_observations"><?= $project['project_observations']; ?></textarea>
               </div>
 
               <div class="form-group mb-3">

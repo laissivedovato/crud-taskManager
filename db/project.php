@@ -3,17 +3,9 @@
 require 'dbcon.php';
 session_start();
 
-$query = "
-  SELECT  id_clients AS id,
-          client_name,
-  FROM    clients
-  WHERE   is_active = b'1'
-";
-
 // adding a new project
 if (isset($_POST['add_project'])) {
 
-//  print_r ($_POST); exit;
 
   //verification
   // if the project name is empty, it sets a message and redirects to editing the project sent
@@ -61,7 +53,6 @@ if (isset($_POST['add_project'])) {
   }
 
 
-
   //additing a new project
   $addProject = searchProjectByName($_POST['project_name'], 0);
   if (!empty($addProject)) {
@@ -99,12 +90,12 @@ if (isset($_POST['add_project'])) {
       project_observations
     ) VALUES (
       '{$projectName}',
+      '{$_POST['description']}',
       {$_POST['id_clients']},
       ".(empty($_POST['id_clients_intermediary']) ? "" : "{$_POST['id_clients_intermediary']},")."
       '{$dataCriacao}',
       '{$_POST['deadline_date']}',
       {$_POST['value']},
-      '{$_POST['description']}',
       '{$_POST['value_observations']}',
       '{$_POST['project_observations']}'
     )";
@@ -115,7 +106,7 @@ if (isset($_POST['add_project'])) {
     $_SESSION['message'] = 'Project created successfully';
     header('Location: ../pages/projects/listProjects.php');
     exit(0);
-  } else {
+   } else {
     //error
     $_SESSION['message'] = 'query error: ' . mysqli_error($con);;
     header('Location: ../pages/projects/listProjects.php');
@@ -126,7 +117,7 @@ if (isset($_POST['add_project'])) {
 // update project
 if (isset($_POST['update_project'])) {
   //if the name is empty, set a message and redirect to editing the
-  // project sent
+ // project sent
   if (empty($_POST['project_name'])) {
     $_SESSION['message'] = "Project name is mandatory!";
     header("Location: ../pages/projects/editProject.php?id={$projectName}");
@@ -163,15 +154,10 @@ if (isset($_POST['update_project'])) {
   }
 
 
-
-
-
-
-
-  $addProject = searchProjectByName($_POST['project_name'], $_POST['project_id']);
+  $addProject = searchProjectByName($_POST['project_name'], $_POST['projects_id']);
   if (!empty($addProject)) {
     $_SESSION['message'] = "Project name is already in use!";
-    header("Location: ../pages/projects/editProject.php?id={$_POST['project_id']}");
+    header("Location: ../pages/projects/addProject.php");
     exit(0);
   }
 
@@ -180,15 +166,19 @@ if (isset($_POST['update_project'])) {
     SET     name='{$projectName}',
             description='{$_POST['description']}',
             id_clients='{$_POST['id_clients']}',
-            name='{$_POST['project_name']}',
-            name='{$_POST['project_name']}'
-
+            id_clients_intermediary='{$_POST['id_clients_intermediary']}',
+            creation_datetime='{$dataCriacao}',
+            deadline_date='{$_POST['deadline_date']}',
+            value='{$_POST['value']}',
+            value_observations='{$_POST['value_observations']}',
+            project_observations='{$_POST['project_observations']}'
     WHERE   id_projects='{$_POST['projects_id']}'
   ";
+
   $query_run = mysqli_query($con, $updateQuery);
 
   $_SESSION['message'] = "project name updated successfully!";
-  header("Location: ../pages/projects/editProject.php?id={$_POST['project_id']}");
+  header("Location:  ../pages/projects/editProject.php?id={$_POST['projects_id']}");
 }
 
 // trata a ativação ou desativação de projetos
@@ -208,14 +198,14 @@ if (isset($_POST['toggle_activate_project'])) {
     SET     is_active=b'{$active}'
     WHERE   id_projects='{$_POST['project_id']}'
   ";
+
   $query_run = mysqli_query($con, $updateQuery);
 
-  $_SESSION['message'] = "Project{$_POST['toggle_activate_project']}d!";
-  header("Location: ../pages/projects/listProject.php");
+  $_SESSION['message'] = "Project {$_POST['toggle_activate_project']}d!";
+  header("Location: ../pages/projects/listProjects.php");
 }
 
-function searchProjectByName($nameProject, $idProject)
-{
+function searchProjectByName($nameProject, $idProject) {
   require './dbcon.php';
 
   $query = "
